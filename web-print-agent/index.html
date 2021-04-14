@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>打印测试</title>
+  </head>
+  <body>
+    <button onclick="printMsg()">打印</button>
+    <script type="text/javascript">
+      websocket = new WebSocket("ws://127.0.0.1:9401");
+      websocket.onopen = function (evnt) {
+        console.log("服务器连接成功");
+      };
+      websocket.onmessage = function (evnt) {
+        console.log("接收到信息", evnt);
+      };
+
+      websocket.onerror = function (evnt) {
+        console.log("websocket异常", evnt);
+      };
+      websocket.onclose = function (evnt) {
+        console.log("与服务器断开");
+      };
+      function printMsg() {
+        websocket.send(
+          JSON.stringify({ url: "http://192.168.207.129/1.pdf", content: "" })
+        );
+      }
+    </script>
+  </body>
+</html>
